@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="" class="bg-slate-900">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>tkt</title>
+</head>
+
+<body>
+    <h1>TESTGEO </h1>
+</body>
+
+<script>
+
+    const successCallBack = (pos) => {
+        console.log(pos);
+        position = [pos.coords.latitude, pos.coords.longitude]
+        navigator.geolocation.clearWatch(position);
+    }
+
+    const errorCallBack = (error) => {
+        alert("Vous n'avez pas autorisé la localisation");
+        console.error(error);
+    }
+
+    var position = navigator.geolocation.watchPosition(successCallBack, errorCallBack, { timeout: 60_000 });
+    
+</script>
+
+</html>

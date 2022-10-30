@@ -1,0 +1,28 @@
+# Cache downloaded dependencies and plugins between builds.
+# Not strictly necessary, but speeds up the builds.
+cache:
+  key: "$CI_JOB_NAME"
+  paths:
+    # Must be within the repository under test hence we can't use the
+    # default ~/.m2
+    - .m2/repository
+variables:
+  # Use the cached directory above.
+  MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
+
+deploy:
+  image: maven:3.6.1-jdk-11 # docker image with Maven
+  before_script:
+    # The runners on the forge need a proxy to access the web. mvn
+    # ignores the $http_proxy & friends variable => write a
+    # configuration file that does this for us.
+    - . users/setup-mvn-proxy.sh
+    - chmod 400 $CI_SSH_KEY
+    # Useful only for debugging
+    #- cat ~/.m2/settings.xml
+  script:
+    - cd users && mvn clean package --batch-mode
+    - scp -o StrictHostKeyChecking=no -i $CI_SSH_KEY target/users.war  gitlabci@192.168.75.46:/opt/tomcat/webapps/users.war
+    - cd .. && scp -r -vvv -o StrictHostKeyChecking=no -i $CI_SSH_KEY api gitlabci@192.168.75.46:~/
+    - scp -r -vvv -o StrictHostKeyChecking=no -i $CI_SSH_KEY client gitlabci@192.168.75.46:~/
+    #- cd api && npm i && pm2 start ecosystem.config.js --name api

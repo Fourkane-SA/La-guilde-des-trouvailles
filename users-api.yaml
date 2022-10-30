@@ -1,0 +1,139 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+paths:
+  /users/{login}:
+    put:
+      tags:
+        - rest-controller
+      summary: update password user.
+      operationId: updateUser_1
+      parameters:
+        - name: login
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+        required: true
+      responses:
+        '200':
+          description: successful operation
+        '404':
+          description: User not found
+    delete:
+      tags:
+        - rest-controller
+      summary: Delete user
+      description: deleting a user.
+      operationId: deleteUser
+      parameters:
+        - name: login
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: user deteled
+        '404':
+          description: User not found
+  /users:
+    get:
+      tags:
+        - rest-controller
+      summary: Get user's login, and if he is connected
+      operationId: getUser_1
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                login:
+                  type: string
+                
+          application/json:
+            schema:
+              type: object
+              properties:
+                login:
+                  type: string
+                
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+    post:
+      tags:
+        - rest-controller
+      summary: create a new user
+      description: creation of a user.
+      operationId: addUser_1
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                login:
+                  type: string
+                password:
+                  type: string
+          application/json:
+            schema:
+              type: object
+              properties:
+                login:
+                  type: string
+                password:
+                  type: string
+        required: true
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        login:
+          type: string
+        password:
+          type: string
+          writeOnly: true
+        connected:
+          type: boolean

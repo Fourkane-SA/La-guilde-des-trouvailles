@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+	<meta charset="UTF-8">
+	<title>La guilde des trouvailles - Confidentiel</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body class="b">
+	<header>
+		<h1>La guilde des trouvailles <span class="elanor">Confidentiel</span></h1>
+	</header>
+
+	<section>
+		<h2>Carte</h2>
+		<div id="map"></div>
+	</section>
+
+	<section id="sectionSet">
+		<h2>ZRR</h2>
+		<div class="content">
+			<p>Appuyez sur "Set" pour sélectionner un point de la carte :</p>
+			<form id="setCorner1" onclick="updateCorner1();" class="pure-form">
+				<fieldset>
+					<input type="button" value="Set" class="pure-button pure-button-active">&nbsp;&nbsp;
+					<label for="lat1">Lattitude : </label> <input type="text" id="lat1" name="lat1">&nbsp;&nbsp;
+					<label for="lon1">Longitude : </label> <input type="text" id="lon1" name="lon1">
+				</fieldset>
+				<span class="elanor">TODO:</span>
+			</form>
+			<form id="setCorner2" onclick="updateCorner2();" class="pure-form">
+				<fieldset>
+					<input type="button" value="Set" class="pure-button pure-button-active">&nbsp;&nbsp;
+					<label for="lat2">Lattitude : </label> <input type="text" id="lat2" name="lat2">&nbsp;&nbsp;
+					<label for="lon2">Longitude : </label> <input type="text" id="lon2" name="lon2">
+				</fieldset>
+			</form>
+			<form id="sendZrr" onsubmit="sendPosition();" class="pure-form">
+				<fieldset>
+					<label for="sendZrr">Valider la position de la ZRR : </label>&nbsp;&nbsp;
+					<input type="submit" name="sendZrr" value="Send" class="pure-button pure-button-active">
+				</fieldset>
+			</form>
+		</div>
+	</section>
+
+	<section id="sectionParametre">
+		<h2>Paramètres</h2>
+		<div class="content">
+			<form id="setTtl" class="pure-form">
+				<fieldset>
+					<label for="ttl">Temps de Tranquillité et de Liberté (TTL) par défaut : </label> <input
+						type="number" min="0" max="180" value="60" id="ttl" name="ttl">&nbsp;&nbsp;
+					<input type="submit" name="setTtl" value="Set" class="pure-button pure-button-active">
+				</fieldset>
+			</form>
+			<form id="setTreasureType" onsubmit="start();" class="pure-form">
+				<fieldset>
+					<label for="treasureType">Type de trésor : </label> <select name="treasureType" id="treasure">
+						<option value="lune" selected>potion de lune</option>
+						<option value="dissimulation">potion de dissimulation</option>
+						<option value="Bêta-X">Bêta-X</option>
+					</select>
+					<br>
+					<label for="sendTreasure">Passer en mode de déclenchement d'impact (démarre le jeu) : </label>
+					<input type="submit" name="sendTreasure" value="Feu!" class="pure-button pure-button-active">
+				</fieldset>
+			</form>
+		</div>
+	</section>
+
+	<section id="sectionAventurier">
+		<h2>Aventurier</h2>
+		<div class="content">
+			<div class="users">
+
+			</div>
+
+			<form id="addUser" onsubmit="return sendTreasure();" class="pure-form">
+				<fieldset>
+					<label for="addUser">Inscrire un joueur dans la ZRR : </label>
+					<input type="submit" name="addUser" value="Add" class="pure-button pure-button-active">
+				</fieldset>
+			</form>
+		</div>
+	</section>
+	<section>
+		<p><span class="elanor">Credits:</span> Photo by <a
+				href="https://unsplash.com/@jplenio?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Johannes
+				Plenio</a> on <a
+				href="https://unsplash.com/collections/CKvwqealkTc/enchanted-forest?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>.
+			Fonts by <span class="elanor"><a href="https://dirtylinestudio.com/product/elanor-free-font/">Dirtyline
+					studio</a></span> and <span style="font-family: sonder"><a
+					href="https://www.awwwards.com/inspiration/sonder-regular-free-font">Awwwards</a></span>.</p>
+	</section>
+</body>
+
+</html>
